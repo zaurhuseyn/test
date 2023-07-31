@@ -1,0 +1,44 @@
+import React, { useState } from 'react';
+
+const App = () => {
+  const initialData = [
+    { "name": "foo1", "value": "bar1" },
+    { "name": "foo2", "value": "bar2" },
+    // Добавьте здесь остальные элементы данных
+  ];
+
+  const [data, setData] = useState(initialData);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+
+  const handleValueChange = (e) => {
+    const updatedData = [...data];
+    updatedData[selectedItemIndex].value = e.target.value;
+    setData(updatedData);
+  };
+
+  const handleSelectItem = (index) => {
+    setSelectedItemIndex(index);
+  };
+
+  return (
+    <div>
+      <ul>
+        {data.map((item, index) => (
+          <li key={index} onClick={() => handleSelectItem(index)}>
+            {item.name} - {selectedItemIndex === index ? (
+              <input
+                type="text"
+                value={item.value}
+                onChange={handleValueChange}
+              />
+            ) : (
+              item.value
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
